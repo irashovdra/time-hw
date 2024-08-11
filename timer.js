@@ -4,11 +4,22 @@ const hoursElement = document.querySelector('[data-value="hours"]');
 const minsElement = document.querySelector('[data-value="mins"]');
 const secsElement = document.querySelector('[data-value="secs"]');
 const startButton = document.getElementById("start-timer");
+const userDate = document.querySelector(".user-date");
+const chooseBtn = document.querySelector(".choose-button");
 let interval;
+let targetDate;
+
+function getMlsFromInput() {
+  chooseBtn.addEventListener("click", () => {
+    const getUserDate = userDate.value;
+    targetDate = new Date(getUserDate);
+    const milliseconds = targetDate.getTime();
+    console.log(milliseconds);
+  });
+}
 
 function updateTimer() {
   const now = new Date();
-  const targetDate = new Date("August 9, 2024");
   const time = targetDate - now;
 
   if (time <= 0) {
@@ -33,9 +44,9 @@ function updateTimer() {
 
 function startTimer() {
   if (interval) return;
-
   updateTimer();
   interval = setInterval(updateTimer, 1000);
 }
 
+getMlsFromInput();
 startButton.addEventListener("click", startTimer);
